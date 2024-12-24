@@ -2,6 +2,7 @@ import { useState } from "react";
 import Spinner from "./assets/spinner.svg";
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
   const [showForecast, setShowForecast] = useState(false);
@@ -13,6 +14,10 @@ function App() {
   const BASE_URL = "https://api.openweathermap.org/data/2.5/weather";
   const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast";
   const API_KEY = "210e5e140b1172c061313f82d196ec4d";
+
+  const handleDarkModeToggle = () => {
+    setDarkMode(!darkMode);
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -67,7 +72,21 @@ function App() {
 
   return (
     <>
-      <div className="bg-[#1e258f] h-screen w-full overflow-y-auto">
+      <div
+        className={`bg-[${
+          darkMode ? "#1e258f" : "#f7f7f7"
+        }] h-screen w-full overflow-y-auto`}
+      >
+        <button
+          onClick={handleDarkModeToggle}
+          className={`border boder-[#d5d5d5] rounded-[8px] w-1/2 md:w-fit flex justify-center mt-10 px-5 mx-20 py-3 hover:scale-95 transition-all ease-out ${
+            darkMode
+              ? "bg-[#1e258f] text-[#ffffff]"
+              : "bg-[#ffffff] text-[#2f2f2f]"
+          }`}
+        >
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
         <div className="flex flex-col gap-y-6 py-10 justify-center items-center">
           <h1 className="font-medium text-3xl">Open Weather Api Search</h1>
           <span className="font-normal text-xl">
